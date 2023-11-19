@@ -10,13 +10,15 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.ts,.vue .",
     "fmt": "prettier --cache --write .",
-    "fmt:check": "prettier --check ."
+    "fmt:check": "prettier --check .",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/i18n": "8.0.0-rc.5",
     "@nuxtjs/tailwindcss": "^6.9.5",
+    "@nuxtjs/web-vitals": "^0.2.6",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "@vercel/analytics": "^1.1.1",
