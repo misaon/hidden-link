@@ -10,8 +10,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.ts,.vue .",
     "fmt": "prettier --cache --write .",
-    "fmt:check": "prettier --check .",
-    "prepare": "husky install"
+    "fmt:check": "prettier --check ."
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
