@@ -8,8 +8,10 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint --ignore-path .gitignore --ext .ts,.vue,.js,.cjs .",
-    "fmt": "prettier --cache --write ."
+    "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.ts,.vue .",
+    "fmt": "prettier --cache --write .",
+    "fmt:check": "prettier --check .",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -26,6 +28,8 @@
     "eslint-plugin-tailwindcss": "^3.13.0",
     "eslint-plugin-unicorn": "^49.0.0",
     "eslint-plugin-vue": "^9.18.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.1.0",
     "nuxt": "^3.8.1",
     "nuxt-icon": "^0.6.6",
     "prettier": "^3.1.0",

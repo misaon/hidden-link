@@ -25,5 +25,11 @@ module.exports = {
         'vue/multi-word-component-names': 'off',
       },
     },
+    {
+      files: ['*.cjs'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
   ],
 };
