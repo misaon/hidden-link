@@ -1,9 +1,68 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/i18n', 'nuxt-icon', '@nuxtjs/eslint-module'],
+  modules: [
+    'nuxt-security',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/i18n',
+    'nuxt-icon',
+    '@nuxtjs/eslint-module',
+  ],
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: '/apple-touch-icon.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '32x32',
+          href: '/favicon-32x32.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '16x16',
+          href: '/favicon-16x16.png',
+        },
+        {
+          rel: 'manifest',
+          href: '/site.webmanifest',
+        },
+        {
+          rel: 'mask-icon',
+          href: '/safari-pinned-tab.svg',
+          color: '#1d4ed8',
+        },
+      ],
+      meta: [
+        {
+          name: 'msapplication-TileColor',
+          content: '#1d4ed8',
+        },
+        {
+          name: 'theme-color',
+          content: '#1d4ed8',
+        },
+      ],
+    },
+  },
+  security: {
+    headers: {
+      crossOriginEmbedderPolicy:
+        process.env.NODE_ENV === 'development' ? 'unsafe-none' : 'require-corp',
+    },
+  },
+  routeRules: {
+    '/content': {
+      ssr: false,
+    },
+  },
   i18n: {
-    baseUrl: 'https://hidden-link.vercel.app',
+    baseUrl: 'https://hidden-link.com',
     locales: [
       {
         code: 'en',

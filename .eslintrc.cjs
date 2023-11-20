@@ -26,6 +26,19 @@ module.exports = {
       },
     },
     {
+      files: ['composables/**/*.ts'],
+      rules: {
+        'unicorn/filename-case': [
+          'error',
+          {
+            cases: {
+              camelCase: true,
+            },
+          },
+        ],
+      },
+    },
+    {
       files: ['*.cjs'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',

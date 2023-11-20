@@ -27,6 +27,7 @@
 <script setup lang="ts">
 const appConfig = useAppConfig();
 const route = useRoute();
+const { t } = useI18n();
 
 const head = useLocaleHead({
   addDirAttribute: true,
@@ -35,6 +36,6 @@ const head = useLocaleHead({
 });
 
 const title = computed(() =>
-  route.meta.title ? `${route.meta.title} | ${appConfig.name}` : appConfig.name
+  route.meta.title ? `${t(route.meta.title as string)} | ${appConfig.name}` : appConfig.name
 );
 </script>
