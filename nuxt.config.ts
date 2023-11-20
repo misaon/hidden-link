@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     'nuxt-security',
+    '@vueuse/nuxt',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/i18n',
     'nuxt-icon',
