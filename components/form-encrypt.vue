@@ -1,16 +1,59 @@
 <template>
   <form class="flex flex-col gap-4" autocomplete="off" @submit.prevent="handleFormSubmit">
-    <textarea
-      v-model.trim="content"
-      required
-      :placeholder="$t('encryptForm.contentPlaceholder')"
-      class="resize-none overflow-hidden rounded-lg bg-white/25 p-4 shadow-md outline-0 transition-colors duration-300 placeholder:text-white hover:bg-white/30 focus:bg-white/30"
-      :rows="13"
-    />
+    <div class="flex flex-col overflow-hidden rounded-lg bg-white/25 shadow-md">
+      <div id="editorToolbar" class="flex border-b-2 border-b-white/10">
+        <div class="flex grow gap-4">
+          <div class="flex">
+            <button class="ql-bold flex h-10 w-10 items-center justify-center hover:bg-white/25">
+              <Icon name="mdi:format-bold" class="text-xl" />
+            </button>
+            <button class="ql-italic flex h-10 w-10 items-center justify-center hover:bg-white/25">
+              <Icon name="mdi:format-italic" class="text-xl" />
+            </button>
+            <button
+              class="ql-underline flex h-10 w-10 items-center justify-center hover:bg-white/25"
+            >
+              <Icon name="mdi:format-underline" class="text-xl" />
+            </button>
+            <button class="ql-strike flex h-10 w-10 items-center justify-center hover:bg-white/25">
+              <Icon name="mdi:format-strikethrough-variant" class="text-xl" />
+            </button>
+          </div>
+          <div class="flex">
+            <button
+              class="ql-list flex h-10 w-10 items-center justify-center hover:bg-white/25"
+              value="bullet"
+            >
+              <Icon name="mdi:format-list-bulleted" class="text-xl" />
+            </button>
+            <button
+              class="ql-list flex h-10 w-10 items-center justify-center hover:bg-white/25"
+              value="ordered"
+            >
+              <Icon name="mdi:format-list-numbered" class="text-xl" />
+            </button>
+          </div>
+          <div class="flex">
+            <button class="ql-clean flex h-10 w-10 items-center justify-center hover:bg-white/25">
+              <Icon name="mdi:format-clear" class="text-xl" />
+            </button>
+          </div>
+        </div>
+
+        <div class="flex">
+          <button
+            type="button"
+            class="flex h-10 w-10 items-center justify-center hover:bg-white/25"
+          >
+            <Icon name="mdi:cog" class="text-xl" />
+          </button>
+        </div>
+      </div>
+      <div ref="editorElement" class="p-4"></div>
+    </div>
     <button
       class="select-none rounded-lg bg-primary p-4 font-bold uppercase shadow-md transition-colors duration-300 hover:bg-blue-500"
       type="submit"
-      :disabled="content.length === 0"
     >
       {{ $t('encryptForm.send') }}
     </button>
@@ -18,12 +61,76 @@
 </template>
 
 <script setup lang="ts">
-const { generate } = useIdentifier();
+const { t } = useI18n();
+const { generateIdentifier } = useIdentifier();
 
-const content = ref('');
+const editor = ref();
+const editorElement = ref<Element>();
+
+if (process.client) {
+  const { default: Quill } = await import('quill');
+
+  onMounted(() => {
+    if (editorElement.value) {
+      editor.value = new Quill(editorElement.value, {
+        scrollingContainer: 'body',
+        placeholder: t('encryptForm.contentPlaceholder'),
+        modules: {
+          toolbar: '#editorToolbar',
+        },
+      });
+    }
+  });
+}
 
 const handleFormSubmit = async () => {
-  const identifier = await generate();
-  console.log(identifier, content.value);
+  const identifier = await generateIdentifier({
+    expireIn: 259_200, // 3 days in seconds
+  });
+  console.log(identifier, editor.value.getContents());
 };
 </script>
+
+<style lang="postcss">
+.ql-toolbar {
+  & > button {
+    &.ql-active {
+      @apply bg-white/25;
+    }
+  }
+}
+
+.ql-editor {
+  @apply relative outline-0 h-[18rem] overflow-y-auto;
+
+  &::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-white/25 rounded-2xl hover:bg-white/50;
+  }
+
+  &.ql-blank:before {
+    @apply pointer-events-none absolute;
+    content: attr(data-placeholder);
+  }
+
+  ol,
+  ul {
+    padding-left: 1.5em;
+  }
+
+  ol > li {
+    @apply list-decimal;
+  }
+
+  ul > li {
+    @apply list-disc;
+  }
+}
+
+.ql-clipboard {
+  @apply hidden;
+}
+</style>
