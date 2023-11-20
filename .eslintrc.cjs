@@ -18,6 +18,14 @@ module.exports = {
   parserOptions: {
     parser: '@typescript-eslint/parser',
   },
+  rules: {
+    'tailwindcss/no-custom-classname': [
+      'error',
+      {
+        whitelist: ['ql\\-[a-z]+'],
+      },
+    ],
+  },
   overrides: [
     {
       files: ['layouts/**/*.vue', 'pages/**/*.vue'],
