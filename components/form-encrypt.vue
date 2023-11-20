@@ -10,6 +10,7 @@
     <button
       class="select-none rounded-lg bg-primary p-4 font-bold uppercase shadow-md transition-colors duration-300 hover:bg-blue-500"
       type="submit"
+      :disabled="content.length === 0"
     >
       {{ $t('encryptForm.send') }}
     </button>
@@ -17,9 +18,12 @@
 </template>
 
 <script setup lang="ts">
+const { generate } = useIdentifier();
+
 const content = ref('');
 
-const handleFormSubmit = () => {
-  console.log(content.value);
+const handleFormSubmit = async () => {
+  const identifier = await generate();
+  console.log(identifier, content.value);
 };
 </script>

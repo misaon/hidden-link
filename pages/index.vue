@@ -1,3 +1,3 @@
 <template>
-  <p>content</p>
+  <p>site content</p>
 </template>
