@@ -49,7 +49,7 @@
           </button>
         </div>
       </div>
-      <div ref="editorElement" class="p-4"></div>
+      <div ref="editorElement" class="h-[18rem] p-4"></div>
     </div>
     <button
       class="select-none rounded-lg bg-primary p-4 font-bold uppercase shadow-md transition-colors duration-300 hover:bg-blue-500"
@@ -61,27 +61,23 @@
 </template>
 
 <script setup lang="ts">
+const { $Quill } = useNuxtApp();
 const { t } = useI18n();
 const { generateIdentifier } = useIdentifier();
 
 const editor = ref();
 const editorElement = ref<Element>();
 
-if (process.client) {
-  const { default: Quill } = await import('quill');
-
-  onMounted(() => {
-    if (editorElement.value) {
-      editor.value = new Quill(editorElement.value, {
-        scrollingContainer: 'body',
-        placeholder: t('encryptForm.contentPlaceholder'),
-        modules: {
-          toolbar: '#editorToolbar',
-        },
-      });
-    }
-  });
-}
+onMounted(() => {
+  if (editorElement.value) {
+    editor.value = new $Quill(editorElement.value, {
+      placeholder: t('encryptForm.contentPlaceholder'),
+      modules: {
+        toolbar: '#editorToolbar',
+      },
+    });
+  }
+});
 
 const handleFormSubmit = async () => {
   const identifier = await generateIdentifier({
@@ -101,7 +97,7 @@ const handleFormSubmit = async () => {
 }
 
 .ql-editor {
-  @apply relative outline-0 h-[18rem] overflow-y-auto;
+  @apply relative outline-0 overflow-y-auto h-full;
 
   &::-webkit-scrollbar {
     @apply w-2;
