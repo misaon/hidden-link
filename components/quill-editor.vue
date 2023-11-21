@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showToolbar" id="editorToolbar" class="flex border-b-2 border-b-white/10">
+  <div v-if="showToolbar" id="editor-toolbar" class="flex border-b-2 border-b-white/10">
     <div class="flex grow lg:gap-4">
       <div class="flex">
         <button class="ql-bold flex h-10 w-10 items-center justify-center hover:bg-white/25">
@@ -80,7 +80,7 @@ onMounted(async () => {
       placeholder: props.placeholder,
       readOnly: props.readonly,
       modules: {
-        toolbar: props.showToolbar ? '#editorToolbar' : undefined,
+        toolbar: props.showToolbar ? '#editor-toolbar' : undefined,
       },
     });
 

@@ -1,6 +1,18 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+const nitroStorage = {
+  storage: {
+    redis: {
+      driver: 'redis',
+      port: 6379,
+      host: 'localhost',
+    },
+  },
+};
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  nitro: {
+    ...nitroStorage,
+  },
   modules: [
     'nuxt-security',
     '@vueuse/nuxt',

@@ -7,5 +7,17 @@
 </template>
 
 <script setup lang="ts">
-const content = ref('<p>test content</p>');
+import type { ContentGetRequest, ContentGetResponse } from '~/types';
+
+const route = useRoute();
+const identifier = route.hash.startsWith('#') ? route.hash.slice(1) : undefined;
+
+const content = ref();
+
+const { data } = await useFetch<ContentGetResponse>('/api/content-get', {
+  method: 'POST',
+  body: { identifier } as ContentGetRequest,
+});
+
+content.value = data.value?.content;
 </script>

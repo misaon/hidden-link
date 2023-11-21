@@ -6,7 +6,7 @@
   },
   "header": {
     "title": "Share sensitive information securely using links.",
-    "subtitle": "Our tool that lets you share sensitive information with your colleagues or friends more securely with time-limited links. Everything is encrypted (end-to-end) and completely anonymous. We are using secure techniques as OWASP, EdDSA and AES-256. No more sending plain passwords via messages!"
+    "subtitle": "Our tool that lets you share sensitive information with your colleagues or friends more securely with time-limited links. Everything is encrypted (end-to-end) and completely anonymous. We are using secure techniques as OWASP, RSA and AES-256. No more sending plain passwords via messages!"
   },
   "footer": {
     "licensedUnder": "Software licensed under"
