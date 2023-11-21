@@ -16,9 +16,7 @@
           <div class="container flex max-w-screen-xl flex-col gap-16 p-8">
             <AppHeader />
 
-            <div class="container gap-8 p-0 text-center lg:p-8">
-              <h1 class="text-5xl font-bold">{{ $t('content.title') }}</h1>
-            </div>
+            <h1 class="text-center text-5xl font-bold">{{ $t('content.title') }}</h1>
           </div>
 
           <main>
