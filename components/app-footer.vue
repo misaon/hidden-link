@@ -1,6 +1,8 @@
 <template>
-  <footer class="bg-blue-900 text-white">
-    <div class="container flex flex-col items-center gap-4 py-8 md:flex-row md:justify-between">
+  <footer class="border-t border-t-white/25 bg-blue-900 text-white/75">
+    <div
+      class="container flex max-w-screen-xl flex-col items-center gap-4 py-8 md:justify-between lg:flex-row"
+    >
       <p>
         Copyright © {{ currentYear }} <span class="font-bold">{{ appConfig.name }}</span>
       </p>

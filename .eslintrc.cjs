@@ -25,6 +25,14 @@ module.exports = {
         whitelist: ['ql\\-[a-z]+'],
       },
     ],
+    'unicorn/prevent-abbreviations': [
+      'error',
+      {
+        replacements: {
+          props: false,
+        },
+      },
+    ],
   },
   overrides: [
     {
