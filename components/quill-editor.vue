@@ -115,7 +115,7 @@ defineExpose({
 }
 
 .ql-editor {
-  @apply relative outline-0 overflow-y-auto h-full;
+  @apply relative outline-0 overflow-y-auto h-full focus:outline-0;
 
   &::-webkit-scrollbar {
     @apply w-2;
