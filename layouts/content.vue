@@ -13,10 +13,12 @@
       </Head>
       <Body>
         <div class="grow bg-gradient-to-t from-blue-900 to-blue-700 text-white">
-          <div class="container flex max-w-screen-xl flex-col gap-16 p-8">
+          <div class="container flex max-w-screen-xl flex-col pt-8">
             <AppHeader />
 
-            <h1 class="text-center text-5xl font-bold">{{ $t('content.title') }}</h1>
+            <div class="py-10 text-center lg:container lg:py-14">
+              <h1 class="text-5xl font-bold">{{ $t('content.title') }}</h1>
+            </div>
           </div>
 
           <main>
