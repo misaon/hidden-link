@@ -10,9 +10,9 @@ export default defineEventHandler(async (event) => {
 
   const body = await readBody<ContentCreateRequest>(event);
 
-  const kv = useStorage('redis');
+  // const kv = useStorage('redis');
 
-  await kv.setItem(body.identifier, body.content);
+  // await kv.setItem(body.identifier, body.content);
 
   return {
     identifier: body.identifier,
