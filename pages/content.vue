@@ -1,9 +1,12 @@
 <template>
-  <p>encrypted content</p>
+  <div class="container max-w-screen-lg">
+    <FormDecrypt />
+  </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
   title: 'pages.title.content',
+  layout: 'content',
 });
 </script>

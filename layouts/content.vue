@@ -4,8 +4,6 @@
       <Head>
         <Title>{{ title }}</Title>
 
-        <Meta name="description" content="" />
-
         <template v-for="link in head.link" :key="link.id">
           <Link :id="link.id" :rel="link.rel" :href="link.href" :hreflang="link.hreflang" />
         </template>
@@ -14,24 +12,19 @@
         </template>
       </Head>
       <Body>
-        <div class="bg-gradient-to-t from-blue-900 to-blue-700 text-white">
-          <div class="container flex max-w-screen-xl flex-col gap-10 p-8 lg:gap-8">
+        <div class="grow bg-gradient-to-t from-blue-900 to-blue-700 text-white">
+          <div class="container flex max-w-screen-xl flex-col gap-16 p-8">
             <AppHeader />
 
-            <div class="container grid grid-cols-1 gap-8 p-0 lg:grid-cols-2 lg:p-8">
-              <div class="flex flex-col gap-8">
-                <h1 class="text-5xl font-bold">{{ $t('header.title') }}</h1>
-                <p class="text-white/75">{{ $t('header.subtitle') }}</p>
-              </div>
-
-              <FormEncrypt />
+            <div class="container gap-8 p-0 text-center lg:p-8">
+              <h1 class="text-5xl font-bold">{{ $t('content.title') }}</h1>
             </div>
           </div>
-        </div>
 
-        <main class="grow">
-          <slot />
-        </main>
+          <main>
+            <slot />
+          </main>
+        </div>
 
         <AppFooter />
       </Body>
@@ -47,7 +40,7 @@ const { t } = useI18n();
 const head = useLocaleHead({
   addDirAttribute: true,
   identifierAttribute: 'id',
-  addSeoAttributes: true,
+  addSeoAttributes: false,
 });
 
 const title = computed(() =>
