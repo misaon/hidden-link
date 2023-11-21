@@ -1,8 +1,8 @@
 <template>
   <div class="text-black/75">
     <div class="container flex max-w-screen-xl flex-col gap-16 py-16">
-      <section class="flex flex-col gap-4">
-        <h2 class="text-4xl font-bold text-primary">Why?</h2>
+      <section id="why" class="flex flex-col gap-4">
+        <h2 class="text-4xl font-bold text-blue-900">Why?</h2>
         <p>
           Nullam eget nisl. Sed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
@@ -21,8 +21,8 @@
         </p>
       </section>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-4xl font-bold text-primary">How it works?</h2>
+      <section id="how-it-works" class="flex flex-col gap-4">
+        <h2 class="text-4xl font-bold text-blue-900">How it works?</h2>
         <p>
           Nullam eget nisl. Sed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
@@ -41,8 +41,8 @@
         </p>
       </section>
 
-      <section class="flex flex-col gap-4">
-        <h2 class="text-4xl font-bold text-primary">FAQ</h2>
+      <section id="faq" class="flex flex-col gap-4">
+        <h2 class="text-4xl font-bold text-blue-900">FAQ</h2>
         <p>
           Nullam eget nisl. Sed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
