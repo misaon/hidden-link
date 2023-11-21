@@ -1,6 +1,6 @@
 <template>
   <div class="text-black/75">
-    <div class="container flex max-w-screen-xl flex-col gap-16 px-8 py-16">
+    <div class="container flex max-w-screen-xl flex-col gap-16 py-16">
       <section class="flex flex-col gap-4">
         <h2 class="text-4xl font-bold text-primary">Why?</h2>
         <p>

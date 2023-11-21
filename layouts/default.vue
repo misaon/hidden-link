@@ -15,10 +15,10 @@
       </Head>
       <Body>
         <div class="bg-gradient-to-t from-blue-900 to-blue-700 text-white">
-          <div class="container flex max-w-screen-xl flex-col gap-10 p-8 lg:gap-8">
+          <div class="container flex max-w-screen-xl flex-col pt-8">
             <AppHeader />
 
-            <div class="container grid grid-cols-1 gap-8 p-0 lg:grid-cols-2 lg:p-8">
+            <div class="grid grid-cols-1 gap-10 py-10 lg:container lg:grid-cols-2 lg:py-14">
               <div class="flex flex-col gap-8">
                 <h1 class="text-5xl font-bold">{{ $t('header.title') }}</h1>
                 <p class="text-white/75">{{ $t('header.subtitle') }}</p>
