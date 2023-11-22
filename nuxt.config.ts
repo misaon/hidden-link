@@ -1,17 +1,9 @@
-const nitroStorage = {
-  storage: {
-    redis: {
-      driver: 'redis',
-      port: 6379,
-      host: 'localhost',
-    },
-  },
-};
-
 export default defineNuxtConfig({
   devtools: { enabled: true },
   nitro: {
-    ...nitroStorage,
+    storage: {
+      data: { driver: 'vercelKV' },
+    },
   },
   modules: [
     'nuxt-security',

@@ -6,16 +6,16 @@ export default defineEventHandler(async (event) => {
   const { generateRsaKeyPair } = useRsa();
   const { bufferToBase64 } = useBase64();
 
+  const { identifier, content } = await readBody<ContentCreateRequest>(event);
+
   const { publicKey } = await generateRsaKeyPair();
 
-  const body = await readBody<ContentCreateRequest>(event);
+  const kv = useKv();
 
-  // const kv = useStorage('redis');
-
-  // await kv.setItem(body.identifier, body.content);
+  await kv.setItem(identifier, content);
 
   return {
-    identifier: body.identifier,
+    identifier,
     publicKey: bufferToBase64(publicKey),
   };
 });
