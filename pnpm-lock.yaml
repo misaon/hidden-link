@@ -12,13 +12,13 @@ dependencies:
 devDependencies:
   '@nuxt/devtools':
     specifier: latest
-    version: 1.0.2(nuxt@3.8.1)(vite@4.5.0)
+    version: 1.0.2(@vercel/kv@1.0.0)(nuxt@3.8.1)(vite@4.5.0)
   '@nuxtjs/eslint-module':
     specifier: ^4.1.0
     version: 4.1.0(eslint@8.54.0)(vite@4.5.0)(webpack@5.89.0)
   '@nuxtjs/i18n':
     specifier: 8.0.0-rc.5
-    version: 8.0.0-rc.5(vue-router@4.2.5)(vue@3.3.8)
+    version: 8.0.0-rc.5(@vercel/kv@1.0.0)(vue-router@4.2.5)(vue@3.3.8)
   '@nuxtjs/tailwindcss':
     specifier: ^6.9.5
     version: 6.9.5(webpack@5.89.0)
@@ -34,6 +34,9 @@ devDependencies:
   '@vercel/analytics':
     specifier: ^1.1.1
     version: 1.1.1
+  '@vercel/kv':
+    specifier: ^1.0.0
+    version: 1.0.0
   '@vue/eslint-config-typescript':
     specifier: ^12.0.0
     version: 12.0.0(eslint-plugin-vue@9.18.1)(eslint@8.54.0)(typescript@5.2.2)
@@ -66,7 +69,7 @@ devDependencies:
     version: 15.1.0
   nuxt:
     specifier: ^3.8.1
-    version: 3.8.1(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0)
+    version: 3.8.1(@vercel/kv@1.0.0)(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0)
   nuxt-icon:
     specifier: ^0.6.6
     version: 0.6.6(nuxt@3.8.1)(vite@4.5.0)(vue@3.3.8)
@@ -1313,7 +1316,7 @@ packages:
       '@nuxt/kit': 3.8.1
       '@nuxt/schema': 3.8.1
       execa: 7.2.0
-      nuxt: 3.8.1(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0)
+      nuxt: 3.8.1(@vercel/kv@1.0.0)(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0)
       vite: 4.5.0
     transitivePeerDependencies:
       - rollup
@@ -1336,7 +1339,7 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /@nuxt/devtools@1.0.2(nuxt@3.8.1)(vite@4.5.0):
+  /@nuxt/devtools@1.0.2(@vercel/kv@1.0.0)(nuxt@3.8.1)(vite@4.5.0):
     resolution: {integrity: sha512-nfqvRc36Sh20gDVs3pViHvcyyz3NmaNqgJnWUXgfjSCsT7G/p2wHsoNUXYYTF7kpk3kbNusftaWrIzAiTiXC9A==}
     hasBin: true
     peerDependencies:
@@ -1362,8 +1365,8 @@ packages:
       launch-editor: 2.6.1
       local-pkg: 0.5.0
       magicast: 0.3.2
-      nitropack: 2.7.2
-      nuxt: 3.8.1(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0)
+      nitropack: 2.7.2(@vercel/kv@1.0.0)
+      nuxt: 3.8.1(@vercel/kv@1.0.0)(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0)
       nypm: 0.3.3
       ofetch: 1.3.3
       ohash: 1.1.3
@@ -1570,7 +1573,7 @@ packages:
       - webpack
     dev: true
 
-  /@nuxtjs/i18n@8.0.0-rc.5(vue-router@4.2.5)(vue@3.3.8):
+  /@nuxtjs/i18n@8.0.0-rc.5(@vercel/kv@1.0.0)(vue-router@4.2.5)(vue@3.3.8):
     resolution: {integrity: sha512-iNOh9erVx8/sKtQcz/YZIPTGT/xcf/fmAHbGLb20qecRGOWFMsRb62n9T9taS4WtJwUn1AFc0S7395xqpRkJHw==}
     engines: {node: ^14.16.0 || >=16.11.0}
     dependencies:
@@ -1592,7 +1595,7 @@ packages:
       pkg-types: 1.0.3
       ufo: 1.3.2
       unplugin: 1.5.1
-      unstorage: 1.10.1
+      unstorage: 1.10.1(@vercel/kv@1.0.0)
       vue-i18n: 9.5.0(vue@3.3.8)
       vue-i18n-routing: 1.1.4(vue-i18n@9.5.0)(vue-router@4.2.5)(vue@3.3.8)
     transitivePeerDependencies:
@@ -2282,10 +2285,23 @@ packages:
       vue: 3.3.8(typescript@5.2.2)
     dev: true
 
+  /@upstash/redis@1.24.3:
+    resolution: {integrity: sha512-gw6d4IA1biB4eye5ESaXc0zOlVQI94aptsBvVcTghYWu1kRmOrJFoMFEDCa8p5uzluyYAOFCuY2GWLR6O4ZoIw==}
+    dependencies:
+      crypto-js: 4.2.0
+    dev: true
+
   /@vercel/analytics@1.1.1:
     resolution: {integrity: sha512-+NqgNmSabg3IFfxYhrWCfB/H+RCUOCR5ExRudNG2+pcRehq628DJB5e1u1xqwpLtn4pAYii4D98w7kofORAGQA==}
     dependencies:
       server-only: 0.0.1
+    dev: true
+
+  /@vercel/kv@1.0.0:
+    resolution: {integrity: sha512-StouXunmEqUfKE+1joSYfELWEEnI1MhTnzUdarHtv6H18RAm3cf5u5g9ElvA1DJNHcrMT6g5yVAhZcYRbk6lvg==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@upstash/redis': 1.24.3
     dev: true
 
   /@vercel/nft@0.24.3:
@@ -2512,7 +2528,7 @@ packages:
       '@vueuse/core': 10.6.1(vue@3.3.8)
       '@vueuse/metadata': 10.6.1
       local-pkg: 0.5.0
-      nuxt: 3.8.1(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0)
+      nuxt: 3.8.1(@vercel/kv@1.0.0)(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0)
       vue-demi: 0.14.6(vue@3.3.8)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -3415,6 +3431,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: true
+
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: true
 
   /css-declaration-sorter@6.4.1(postcss@8.4.31):
@@ -5716,7 +5736,7 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /nitropack@2.7.2:
+  /nitropack@2.7.2(@vercel/kv@1.0.0):
     resolution: {integrity: sha512-6vQbGdBNR20N8wTChzIQUZQmNVhWVDrjUdpOYD68u2hlyUiJembth2fQuoWw3KlsoNYWFvcyqL9X3DPjjnoEUQ==}
     engines: {node: ^16.11.0 || >=17.0.0}
     hasBin: true
@@ -5788,7 +5808,7 @@ packages:
       unctx: 2.3.1
       unenv: 1.7.4
       unimport: 3.5.0(rollup@3.29.4)
-      unstorage: 1.10.1
+      unstorage: 1.10.1(@vercel/kv@1.0.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6041,7 +6061,7 @@ packages:
       - supports-color
     dev: true
 
-  /nuxt@3.8.1(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0):
+  /nuxt@3.8.1(@vercel/kv@1.0.0)(eslint@8.54.0)(typescript@5.2.2)(vite@4.5.0):
     resolution: {integrity: sha512-RSGO56Gv0x2f6AXWw4o4GoBaVdsD0qkPCjrX7Ud/jzH3cRJoyYMPuq/9AOLvf2o1ecZWl39j5elqJ4QHmggyOA==}
     engines: {node: ^14.18.0 || >=16.10.0}
     hasBin: true
@@ -6055,7 +6075,7 @@ packages:
         optional: true
     dependencies:
       '@nuxt/devalue': 2.0.2
-      '@nuxt/devtools': 1.0.2(nuxt@3.8.1)(vite@4.5.0)
+      '@nuxt/devtools': 1.0.2(@vercel/kv@1.0.0)(nuxt@3.8.1)(vite@4.5.0)
       '@nuxt/kit': 3.8.1
       '@nuxt/schema': 3.8.1
       '@nuxt/telemetry': 2.5.2
@@ -6084,7 +6104,7 @@ packages:
       knitwork: 1.0.0
       magic-string: 0.30.5
       mlly: 1.4.2
-      nitropack: 2.7.2
+      nitropack: 2.7.2(@vercel/kv@1.0.0)
       nuxi: 3.9.1
       nypm: 0.3.3
       ofetch: 1.3.3
@@ -8118,7 +8138,7 @@ packages:
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.0
 
-  /unstorage@1.10.1:
+  /unstorage@1.10.1(@vercel/kv@1.0.0):
     resolution: {integrity: sha512-rWQvLRfZNBpF+x8D3/gda5nUCQL2PgXy2jNG4U7/Rc9BGEv9+CAJd0YyGCROUBKs9v49Hg8huw3aih5Bf5TAVw==}
     peerDependencies:
       '@azure/app-configuration': ^1.4.1
@@ -8159,6 +8179,7 @@ packages:
       idb-keyval:
         optional: true
     dependencies:
+      '@vercel/kv': 1.0.0
       anymatch: 3.1.3
       chokidar: 3.5.3
       destr: 2.0.2

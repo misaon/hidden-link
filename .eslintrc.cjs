@@ -42,7 +42,7 @@ module.exports = {
       },
     },
     {
-      files: ['composables/**/*.ts'],
+      files: ['composables/**/*.ts', 'server/utils/**/*.ts'],
       rules: {
         'unicorn/filename-case': [
           'error',
