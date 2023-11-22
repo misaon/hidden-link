@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const kv = useKv();
 
-  console.log('envy', process.env);
+  console.log('envíky', process.env);
   console.log('kv url', process.env.KV_URL);
   console.log('identifier', identifier);
   console.log('obsah', content);
