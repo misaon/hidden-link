@@ -10,14 +10,32 @@
 import type { ContentGetRequest, ContentGetResponse } from '~/types';
 
 const route = useRoute();
-const identifier = route.hash.startsWith('#') ? route.hash.slice(1) : undefined;
+const { parseHash } = useIdentifier();
+const { base64ToCryptoKey, base64ToBuffer, bufferToString } = useEncoder();
+const { decryptAes } = useAes256gcm();
+
+const hash = route.hash.startsWith('#') ? route.hash.slice(1) : undefined;
+
+if (!hash) {
+  throw createError({
+    statusCode: 404,
+  });
+}
+
+const { id, expireIn, key } = parseHash(hash);
 
 const content = ref();
 
 const { data } = await useFetch<ContentGetResponse>('/api/content-get', {
   method: 'POST',
-  body: { identifier } as ContentGetRequest,
+  body: { identifier: `${id}:${expireIn}` } as ContentGetRequest,
 });
 
-content.value = data.value?.content;
+const encryptedContent = await decryptAes(
+  base64ToBuffer(data.value?.content.iv),
+  await base64ToCryptoKey(key, ALGORITHM),
+  base64ToBuffer(data.value?.content.data)
+);
+
+content.value = bufferToString(encryptedContent);
 </script>

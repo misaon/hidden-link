@@ -1,5 +1,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ['node:crypto'],
+      },
+    },
+  },
   nitro: {
     storage: {
       data: { driver: 'vercelKV' },
