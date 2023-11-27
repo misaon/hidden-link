@@ -18,6 +18,7 @@ const hash = route.hash.startsWith('#') ? route.hash.slice(1) : undefined;
 
 if (!hash) {
   throw createError({
+    fatal: true,
     statusCode: 404,
   });
 }
@@ -32,10 +33,10 @@ const { data } = await useFetch<ContentGetResponse>('/api/content-get', {
 });
 
 const encryptedContent = await decryptAes(
-  base64ToBuffer(data.value?.content.iv),
+  base64ToBuffer(data.value!.content.iv),
   await base64ToCryptoKey(key, ALGORITHM),
-  base64ToBuffer(data.value?.content.data)
+  base64ToBuffer(data.value!.content.data)
 );
 
-content.value = bufferToString(encryptedContent);
+content.value = bufferToString(encryptedContent, false);
 </script>

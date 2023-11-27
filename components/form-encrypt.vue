@@ -55,7 +55,7 @@ const {
 
     const [aesKeyBase64, encryptedData] = await Promise.all([
       cryptoKeyToBase64(aesKey),
-      encryptAes(aesIVKey, aesKey, await stringToBuffer(content.value)),
+      encryptAes(aesIVKey, aesKey, stringToBuffer(content.value, false)),
     ]);
 
     const identifier = generateIdentifier({
