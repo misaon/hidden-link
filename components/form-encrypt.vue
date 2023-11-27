@@ -32,14 +32,12 @@
 import type { ContentCreateRequest, ContentCreateResponse } from '~/types';
 
 const localePath = useLocalePath();
-const { generateIdentifier } = useIdentifier();
-const { generateRandomIVKey } = useRandomKey();
+const { generateIdentifier, generateHash } = useIdentifier();
+const { generateRandomKey, generateRandomIVKey } = useRandomKey();
 const { generateAesKey, encryptAes } = useAes256gcm();
-const { toArrayBuffer } = useArrayBuffer();
-const { bufferToBase64 } = useBase64();
+const { stringToBuffer, cryptoKeyToBase64, bufferToBase64 } = useEncoder();
 
 const content = ref('');
-const identifier = ref();
 
 const {
   data: contentLink,
@@ -49,28 +47,39 @@ const {
 } = await useAsyncData(
   'encrypt-process',
   async () => {
-    // 12 bytes is recommended size for key of AES-GCM algorithm
-    const aesIVKey = await generateRandomIVKey(12);
-    const aesKey = await generateAesKey();
-    const encodedContent = toArrayBuffer(content.value);
-    const encryptedData = await encryptAes(aesIVKey, aesKey, encodedContent);
-    const encryptedDataBase64 = bufferToBase64(encryptedData);
+    const [id, aesKey, aesIVKey] = await Promise.all([
+      generateRandomKey(64),
+      generateAesKey(),
+      generateRandomIVKey(),
+    ]);
+
+    const [aesKeyBase64, encryptedData] = await Promise.all([
+      cryptoKeyToBase64(aesKey),
+      encryptAes(aesIVKey, aesKey, await stringToBuffer(content.value)),
+    ]);
+
+    const identifier = generateIdentifier({
+      id: id as string,
+      expireIn: 259_200, // 3 days
+    });
 
     const createContentResponse = await $fetch<ContentCreateResponse>('/api/content-create', {
       method: 'POST',
       body: {
-        identifier: identifier.value,
-        iv: '',
-        key: '',
-        content: encryptedDataBase64,
+        identifier,
+        iv: bufferToBase64(aesIVKey),
+        content: bufferToBase64(encryptedData),
       } as ContentCreateRequest,
     });
 
-    console.log('publicKey', createContentResponse.publicKey);
+    const hash = generateHash({
+      identifier: createContentResponse.identifier,
+      key: aesKeyBase64,
+    });
 
     return localePath({
       name: 'content',
-      hash: `#${createContentResponse.identifier}`,
+      hash: `#${hash}`,
     });
   },
   {
@@ -79,10 +88,6 @@ const {
 );
 
 const handleFormSubmit = async () => {
-  identifier.value = await generateIdentifier({
-    expireIn: 259_200,
-  });
-
   await execute();
 };
 

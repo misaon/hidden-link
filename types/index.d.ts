@@ -5,7 +5,6 @@ export type ContentGetRequest = {
 export type ContentCreateRequest = {
   identifier: string;
   iv: string;
-  key: string;
   content: string;
 };
 

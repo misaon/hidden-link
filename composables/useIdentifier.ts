@@ -1,22 +1,40 @@
-import useBase64 from './useBase64';
-import useRandomKey from './useRandomKey';
+import { addSeconds } from 'date-fns/fp';
 
 type generateIdentifierOptions = {
+  id: string;
   expireIn: number; // in seconds
 };
 
-export default function () {
-  const { toBase64 } = useBase64();
-  const { generateRandomKey } = useRandomKey();
+type generateHashOptions = {
+  identifier: string;
+  key: string;
+};
 
-  const generateIdentifier = async (options: generateIdentifierOptions): Promise<string> => {
-    const randomKey = await generateRandomKey(128);
-    const now = new Date();
+const generateIdentifier = (options: generateIdentifierOptions): string => {
+  const expireIn = addSeconds(options.expireIn, new Date());
 
-    return `${randomKey}:${toBase64(now.toISOString())}:${toBase64(options.expireIn)}`;
-  };
+  return `${options.id}:${expireIn.getTime()}`;
+};
+
+const generateHash = (options: generateHashOptions): string => {
+  return `${options.identifier}:${options.key}`;
+};
+
+const parseHash = (rawHash: string) => {
+  const [id, expireIn, key] = rawHash.split(':');
 
   return {
+    id,
+    expireIn,
+    expireInDate: new Date(Number.parseInt(expireIn)),
+    key,
+  };
+};
+
+export default function () {
+  return {
     generateIdentifier,
+    generateHash,
+    parseHash,
   };
 }

@@ -7,5 +7,7 @@ export default defineEventHandler(async (event) => {
 
   const content = await kv.getItem(body.identifier);
 
-  return { content };
+  return {
+    content,
+  };
 });

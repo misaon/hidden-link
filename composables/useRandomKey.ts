@@ -3,33 +3,39 @@ import useCrypto from './useCrypto';
 export default function () {
   const { crypto } = useCrypto();
 
-  const generateRandomKey = async (length: number): Promise<string> => {
-    if (length <= 0) {
+  const generateRandomKey = async (
+    bytesLength: number,
+    getArrayBuffer = false,
+    charactersList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$_-'
+  ): Promise<string | Uint8Array> => {
+    if (bytesLength <= 0) {
       throw new Error('The length of the key must be a positive number.');
     }
 
     const c = await crypto();
 
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$-_.+!*'()";
-    const charactersLength = characters.length;
+    const randomValues = c.getRandomValues(new Uint8Array(bytesLength));
+
+    if (getArrayBuffer) {
+      return randomValues;
+    }
+
+    const charactersLength = charactersList.length;
     let result = '';
 
-    const randomValues = new Uint8Array(length);
-
-    c.getRandomValues(randomValues);
-
-    for (let index = 0; index < length; index++) {
+    for (let index = 0; index < bytesLength; index++) {
       const randomIndex = randomValues[index] % charactersLength;
-      result += characters[randomIndex];
+      result += charactersList[randomIndex];
     }
 
     return result;
   };
 
-  const generateRandomIVKey = async (bytesLength: number): Promise<Uint8Array> => {
-    const c = await crypto();
+  // 12 bytes is recommended size for key of AES-GCM algorithm
+  const generateRandomIVKey = async (bytesLength = 12): Promise<Uint8Array> => {
+    const key = await generateRandomKey(bytesLength, true);
 
-    return c.getRandomValues(new Uint8Array(bytesLength));
+    return key instanceof Uint8Array ? key : new Uint8Array();
   };
 
   return {

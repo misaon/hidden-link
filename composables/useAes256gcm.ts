@@ -1,12 +1,10 @@
 import useCrypto from './useCrypto';
-import useArrayBuffer from './useArrayBuffer';
 
-const ALGORITHM = 'AES-GCM';
-const ALGORITHM_LENGTH = 256;
+export const ALGORITHM = 'AES-GCM';
+export const ALGORITHM_LENGTH = 256;
 
 export default function () {
   const { crypto } = useCrypto();
-  const { fromArrayBuffer } = useArrayBuffer();
 
   const generateAesKey = async (): Promise<CryptoKey> => {
     const c = await crypto();
@@ -24,7 +22,7 @@ export default function () {
   const encryptAes = async (
     iv: Uint8Array,
     key: CryptoKey,
-    data: Uint8Array
+    plainData: ArrayBuffer
   ): Promise<ArrayBuffer> => {
     const c = await crypto();
 
@@ -34,14 +32,18 @@ export default function () {
         iv,
       },
       key,
-      data
+      plainData
     );
   };
 
-  const decryptAes = async (iv: Uint8Array, key: CryptoKey, encryptedData: ArrayBuffer) => {
+  const decryptAes = async (
+    iv: ArrayBuffer,
+    key: CryptoKey,
+    encryptedData: ArrayBuffer
+  ): Promise<ArrayBuffer> => {
     const c = await crypto();
 
-    const decryptedData = await c.subtle.decrypt(
+    return c.subtle.decrypt(
       {
         name: ALGORITHM,
         iv,
@@ -49,8 +51,6 @@ export default function () {
       key,
       encryptedData
     );
-
-    return fromArrayBuffer(decryptedData);
   };
 
   return {
