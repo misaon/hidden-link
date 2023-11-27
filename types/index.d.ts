@@ -1,3 +1,8 @@
+export type ContentItem = {
+  iv: string;
+  data: string;
+};
+
 export type ContentGetRequest = {
   identifier: string;
 };
@@ -11,10 +16,9 @@ export type ContentCreateRequest = {
 export type ContentDeleteRequest = ContentGetRequest;
 
 export type ContentGetResponse = {
-  content: string;
+  content: ContentItem;
 };
 
 export type ContentCreateResponse = {
   identifier: string;
-  publicKey: string;
 };

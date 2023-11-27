@@ -1,15 +1,18 @@
-import type { ContentCreateRequest } from '~/types';
+import type { ContentItem, ContentCreateRequest, ContentCreateResponse } from '~/types';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<ContentCreateResponse> => {
   const { identifier, iv, content } = await readBody<ContentCreateRequest>(event);
 
   const kv = useKv();
 
   if (await kv.hasItem(identifier)) {
-    // throw error
+    throw createError({
+      fatal: true,
+      statusCode: 409,
+    });
   }
 
-  await kv.setItem(identifier, {
+  await kv.setItem<ContentItem>(identifier, {
     iv,
     data: content,
   });

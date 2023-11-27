@@ -1,61 +1,60 @@
 import useCrypto from './useCrypto';
 
-const stringToBuffer = async (value: string): Promise<ArrayBuffer> => {
-  if (process.client) {
-    const encoder = new TextEncoder();
+const stringToBuffer = (value: string, isBinary = true): ArrayBuffer => {
+  if (isBinary) {
+    const bytes = new Uint8Array(value.length);
 
-    return encoder.encode(value);
-  }
-
-  return Buffer.from(value, 'utf8');
-};
-
-const bufferToString = (buffer: ArrayBuffer): string => {
-  if (process.client) {
-    const bytes = new Uint8Array(buffer);
-    let result = '';
-
-    for (let index = 0; index < bytes.byteLength; index++) {
-      result += String.fromCodePoint(bytes[index]);
+    for (let index = 0; index < value.length; index++) {
+      bytes[index] = value.codePointAt(index) || 0;
     }
 
-    return result;
+    return bytes.buffer;
   }
 
-  return (buffer as Buffer).toString('utf8');
+  const encoder = new TextEncoder();
+
+  return encoder.encode(value);
 };
 
-const stringToBase64 = (value: string): string => {
+const bufferToString = (buffer: ArrayBuffer, isBinary = true): string => {
+  if (isBinary) {
+    const bytes = new Uint8Array(buffer);
+
+    // eslint-disable-next-line unicorn/prefer-code-point
+    return String.fromCharCode(...bytes);
+  }
+
+  const decoder = new TextDecoder();
+
+  return decoder.decode(buffer);
+};
+
+const stringToBase64 = (value: string, isBinary = true): string => {
   if (process.client) {
     return window.btoa(value);
   }
 
-  return Buffer.from(value).toString('base64');
+  return Buffer.from(value, isBinary ? 'binary' : undefined).toString('base64');
 };
 
-const base64ToString = (base64: string): string => {
+const base64ToString = (base64: string, isBinary = true): string => {
   if (process.client) {
     return window.atob(base64);
   }
 
-  return Buffer.from(base64, 'base64').toString('utf8');
+  return Buffer.from(base64, 'base64').toString(isBinary ? 'binary' : 'utf8');
 };
 
-const bufferToBase64 = (buffer: ArrayBuffer): string => {
-  const binaryString = bufferToString(buffer);
+const bufferToBase64 = (buffer: ArrayBuffer, isBinary = true): string => {
+  const binaryString = bufferToString(buffer, isBinary);
 
-  return stringToBase64(binaryString);
+  return stringToBase64(binaryString, isBinary);
 };
 
-const base64ToBuffer = (base64: string): ArrayBuffer => {
-  const binaryString = base64ToString(base64);
-  const bytes = new Uint8Array(binaryString.length);
+const base64ToBuffer = (base64: string, isBinary = true): ArrayBuffer => {
+  const binaryString = base64ToString(base64, isBinary);
 
-  for (let index = 0; index < binaryString.length; index++) {
-    bytes[index] = binaryString.codePointAt(index) || 0;
-  }
-
-  return bytes.buffer;
+  return stringToBuffer(binaryString, isBinary);
 };
 
 export default function () {
@@ -84,5 +83,7 @@ export default function () {
     bufferToString,
     cryptoKeyToBase64,
     stringToBuffer,
+    stringToBase64,
+    base64ToString,
   };
 }
