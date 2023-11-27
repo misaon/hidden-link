@@ -1,4 +1,4 @@
-import { addSeconds } from 'date-fns/fp';
+import { addSeconds } from 'date-fns';
 
 type generateIdentifierOptions = {
   id: string;
@@ -11,7 +11,7 @@ type generateHashOptions = {
 };
 
 const generateIdentifier = (options: generateIdentifierOptions): string => {
-  const expireIn = addSeconds(options.expireIn, new Date());
+  const expireIn = addSeconds(new Date(), options.expireIn);
 
   return `${options.id}:${expireIn.getTime()}`;
 };
