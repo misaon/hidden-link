@@ -17,7 +17,7 @@
             <AppHeader />
 
             <div class="py-10 text-center lg:container lg:py-14">
-              <h1 class="text-5xl font-bold">{{ $t('content.title') }}</h1>
+              <h1 class="text-5xl font-bold">{{ $t('decryptForm.title') }}</h1>
             </div>
           </div>
 

@@ -2,7 +2,7 @@
 // noinspection JSConstantReassignment
 
 import { describe, test, expect } from 'vitest';
-import useRandomKey from '../composables/useRandomKey';
+import useRandomKey from '../utils/useRandomKey';
 
 describe('Use random key', async () => {
   test('Should generate a random key as Uint8Array', async () => {

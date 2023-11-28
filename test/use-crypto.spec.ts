@@ -2,7 +2,7 @@
 // noinspection JSConstantReassignment
 
 import { describe, test, expect } from 'vitest';
-import useCrypto from '../composables/useCrypto';
+import useCrypto from '../utils/useCrypto';
 
 describe('Use crypto', async () => {
   test('Should return Crypto instance', async () => {

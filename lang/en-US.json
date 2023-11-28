@@ -13,9 +13,21 @@
   },
   "encryptForm": {
     "contentPlaceholder": "Your content for safe sharing...",
-    "send": "Encrypt"
+    "send": "Encrypt",
+    "copyLink": "Copy link",
+    "copied": "Copied",
+    "createAnother": "Create another",
+    "progress": {
+      "generatingEncryptionKeys": "Generating encryption keys",
+      "yourContentIsBeingEncrypted": "Your content is being encrypted",
+      "encryptingYourDataForTransmissionUsingRSAKeys": "Encrypting your data for transmission using RSA keys",
+      "generatingHashLink": "Generating a hash link"
+    },
+    "progressDoneText": "Your content has been encrypted and stored securely for 3 days. After this time it will be automatically and irretrievably deleted. You can now copy the link and when you open it, your content will be securely displayed."
   },
-  "content": {
-    "title": "Successfully decrypted link content."
+  "decryptForm": {
+    "title": "Successfully decrypted link content",
+    "countdown": "This link and content will be permanently deleted",
+    "deleteNow": "Delete now"
   }
 }

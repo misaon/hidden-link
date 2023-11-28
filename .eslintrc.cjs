@@ -36,13 +36,20 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['**/*.vue'],
+      rules: {
+        'unicorn/no-null': 'off',
+        'vue/no-v-html': 'off',
+      },
+    },
+    {
       files: ['layouts/**/*.vue', 'pages/**/*.vue'],
       rules: {
         'vue/multi-word-component-names': 'off',
       },
     },
     {
-      files: ['composables/**/*.ts', 'server/utils/**/*.ts'],
+      files: ['composables/**/*.ts', 'utils/**/*.ts', 'server/utils/**/*.ts'],
       rules: {
         'unicorn/filename-case': [
           'error',

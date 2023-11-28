@@ -2,14 +2,13 @@
 // noinspection JSConstantReassignment
 
 import { describe, test, expect } from 'vitest';
-import useAes256gcm from '../composables/useAes256gcm';
-import useRandomKey from '../composables/useRandomKey';
-import useEncoder from '../composables/useEncoder';
-import { ALGORITHM, ALGORITHM_LENGTH } from '../composables/useAes256gcm';
+import useRandomKey from '../utils/useRandomKey';
+import useEncoder from '../utils/useEncoder';
+import useAes, { ALGORITHM, ALGORITHM_LENGTH } from '../utils/useAes';
 
 describe('Use AES-256 GCM', async () => {
   test(`Should generate a random ${ALGORITHM} key as Uint8Array`, async () => {
-    const { generateAesKey } = useAes256gcm();
+    const { generateAesKey } = useAes();
 
     const aesKey = await generateAesKey();
 
@@ -22,7 +21,7 @@ describe('Use AES-256 GCM', async () => {
   });
 
   test(`Should encrypt data using ${ALGORITHM}`, async () => {
-    const { generateAesKey, encryptAes } = useAes256gcm();
+    const { generateAesKey, encryptAes } = useAes();
     const { generateRandomIVKey } = useRandomKey();
     const { stringToBuffer } = useEncoder();
 
@@ -38,7 +37,7 @@ describe('Use AES-256 GCM', async () => {
   });
 
   test(`Should decrypt ${ALGORITHM} encrypted data`, async () => {
-    const { generateAesKey, encryptAes, decryptAes } = useAes256gcm();
+    const { generateAesKey, encryptAes, decryptAes } = useAes();
     const { generateRandomIVKey } = useRandomKey();
     const { stringToBuffer } = useEncoder();
 

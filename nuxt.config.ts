@@ -67,8 +67,7 @@ export default defineNuxtConfig({
       crossOriginEmbedderPolicy:
         process.env.NODE_ENV === 'development' ? 'unsafe-none' : 'require-corp',
     },
-    // Temporary flag
-    removeLoggers: false,
+    // removeLoggers: false,
   },
   routeRules: {
     '/content': {
