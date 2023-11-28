@@ -45,6 +45,9 @@ jobs:
       - name: Check Formatting
         run: pnpm run fmt
 
+      - name: Check app building
+        run: pnpm run build
+
       - name: Run tests and generate coverage
         run: pnpm run test
 
