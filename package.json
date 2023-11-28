@@ -8,10 +8,10 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.ts,.vue .",
-    "fmt": "prettier --cache --write .",
-    "fmt:check": "prettier --check .",
     "prepare": "husky install",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.ts,.vue .",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --cache --write .",
     "test": "vitest --run --coverage",
     "test:dev": "vitest"
   },
