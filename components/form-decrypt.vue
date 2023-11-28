@@ -9,21 +9,17 @@
 <script setup lang="ts">
 import type { ContentGetRequest, ContentGetResponse } from '~/types';
 
-const route = useRoute();
+type Props = {
+  hash: string;
+};
+
+const props = defineProps<Props>();
+
 const { parseHash } = useIdentifier();
 const { base64ToCryptoKey, base64ToBuffer, bufferToString } = useEncoder();
-const { decryptAes } = useAes256gcm();
+const { decryptAes } = useAes();
 
-const hash = route.hash.startsWith('#') ? route.hash.slice(1) : undefined;
-
-if (!hash) {
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-  });
-}
-
-const { id, expireIn, key } = parseHash(hash);
+const { id, expireIn, key } = parseHash(props.hash);
 
 const content = ref();
 

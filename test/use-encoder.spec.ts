@@ -2,8 +2,8 @@
 // noinspection JSConstantReassignment
 
 import { describe, test, expect } from 'vitest';
-import useEncoder from '../composables/useEncoder';
-import { ALGORITHM } from '../composables/useAes256gcm';
+import useEncoder from '../utils/useEncoder';
+import { ALGORITHM } from '../utils/useAes';
 
 const testString = {
   input: `We are ready to do some test => 1234567890 @#$%^&*{} <>.,-|_?!/\\; (čďěíĺňóßšřťúůüýž)`,

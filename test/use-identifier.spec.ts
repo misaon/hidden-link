@@ -2,7 +2,7 @@
 // noinspection JSConstantReassignment
 
 import { describe, test, expect, vi } from 'vitest';
-import useIdentifier from '../composables/useIdentifier';
+import useIdentifier from '../utils/useIdentifier';
 
 describe('Use identifier', async () => {
   test('Should generate identifier', () => {
