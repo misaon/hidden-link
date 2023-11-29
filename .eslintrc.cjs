@@ -31,6 +31,9 @@ module.exports = {
         replacements: {
           props: false,
         },
+        allowList: {
+          e2e: true,
+        },
       },
     ],
   },

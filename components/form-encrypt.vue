@@ -6,6 +6,7 @@
       class="flex flex-col gap-4"
       autocomplete="off"
       spellcheck="false"
+      data-cy="editor"
       @submit.prevent="handleFormSubmit"
     >
       <div class="flex flex-col overflow-hidden rounded bg-white/25 shadow-md">
@@ -14,6 +15,7 @@
       <button
         class="flex select-none items-center justify-center gap-2 rounded bg-primary p-4 text-center font-bold uppercase shadow-md transition-colors duration-300 hover:bg-blue-500"
         type="submit"
+        data-cy="button-encrypt"
       >
         {{ $t('encryptForm.send') }}
       </button>
@@ -22,12 +24,14 @@
     <div
       v-else-if="pending"
       class="flex flex-col justify-center"
+      data-cy="progress"
       :style="{ height: `${formWrapperHeight}px` }"
     >
       <TransitionGroup tag="div" name="progress" class="flex flex-col gap-4">
         <div
           v-for="item in progress"
           :key="item.text"
+          data-cy="progress-item"
           class="flex items-center gap-4 rounded bg-white/25 p-4 shadow-md"
         >
           <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/25">
@@ -37,12 +41,17 @@
               :class="{ 'animate-spin': !item.isDone }"
             />
           </div>
-          <span>{{ item.text }}</span>
+          <span data-cy="progress-item-text">{{ item.text }}</span>
         </div>
       </TransitionGroup>
     </div>
 
-    <div v-else class="flex flex-col justify-center" :style="{ height: `${formWrapperHeight}px` }">
+    <div
+      v-else
+      data-cy="progress-done"
+      class="flex flex-col justify-center"
+      :style="{ height: `${formWrapperHeight}px` }"
+    >
       <div class="flex flex-col gap-4">
         <div class="rounded bg-white/25 p-4 shadow-md">
           <p v-html="$t('encryptForm.progressDoneText')"></p>
@@ -51,6 +60,8 @@
         <div class="flex gap-4">
           <button
             class="flex flex-1 select-none items-center justify-center gap-2 rounded bg-primary p-4 text-center font-bold uppercase shadow-md transition-colors duration-300 hover:bg-blue-500"
+            data-cy="button-copy-link"
+            :data-link="contentLink"
             @click="copy(contentLink || '')"
           >
             <Icon name="mdi:link-variant" class="text-2xl" />
@@ -58,6 +69,7 @@
           </button>
           <button
             class="flex flex-1 select-none items-center justify-center gap-2 rounded bg-white/25 p-4 text-center font-bold uppercase shadow-md transition-colors duration-300 hover:bg-white/50"
+            data-cy="button-reset"
             @click="resetForm"
           >
             {{ $t('encryptForm.createAnother') }}

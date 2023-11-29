@@ -1,5 +1,5 @@
 <template>
-  <form class="flex flex-col gap-4" autocomplete="off" spellcheck="false">
+  <form class="flex flex-col gap-4" autocomplete="off" spellcheck="false" data-cy="editor">
     <div class="flex flex-col overflow-hidden rounded bg-white/25 shadow-md">
       <QuillEditor v-model="content" :readonly="true" :show-toolbar="false" :editor-height="500" />
     </div>
