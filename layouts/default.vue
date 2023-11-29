@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-full flex-col">
-    <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
+    <Html :lang="head.htmlAttrs!.lang" :dir="head.htmlAttrs!.dir">
       <Head>
         <Title>{{ title }}</Title>
 

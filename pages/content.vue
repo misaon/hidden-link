@@ -3,7 +3,7 @@
     <FormDecrypt :hash="hash!" />
 
     <span class="text-center"
-      >{{ $t('decryptForm.countdown') }} <b>{{ expireIn }}</b></span
+      >{{ $t('decryptForm.countdown') }} <b data-cy="expire-in">{{ expireIn }}</b></span
     >
 
     <div class="flex justify-center">

@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: CI
 
 on: [push, pull_request]
 
@@ -39,17 +39,35 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run Linter
-        run: pnpm run lint
-
-      - name: Check Formatting
+      - name: Check formatting
         run: pnpm run fmt
 
-      - name: Check app building
+      - name: Run linter
+        run: pnpm run lint
+
+      - name: Check Typescript types
+        run: pnpm run typecheck
+
+      - name: Try build Nuxt app
         run: pnpm run build
 
-      - name: Run tests and generate coverage
+      - name: Run Vitest tests
         run: pnpm run test
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: pnpm run preview
+          browser: chrome
+
+      - name: Archive Cypress videos and screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
