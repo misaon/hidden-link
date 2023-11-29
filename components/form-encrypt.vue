@@ -34,13 +34,16 @@
           data-cy="progress-item"
           class="flex items-center gap-4 rounded bg-white/25 p-4 shadow-md"
         >
-          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/25">
-            <Icon
-              :name="item.isDone ? 'mdi:check' : 'mdi:loading'"
-              class="text-3xl transition-all"
-              :class="{ 'animate-spin': !item.isDone }"
-            />
+          <div>
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/25">
+              <Icon
+                :name="item.isDone ? 'mdi:check' : 'mdi:loading'"
+                class="absolute text-3xl transition-all"
+                :class="{ 'animate-spin': !item.isDone }"
+              />
+            </div>
           </div>
+
           <span data-cy="progress-item-text">{{ item.text }}</span>
         </div>
       </TransitionGroup>

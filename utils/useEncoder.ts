@@ -30,7 +30,7 @@ const bufferToString = (buffer: ArrayBuffer, isBinary = true): string => {
 };
 
 const stringToBase64 = (value: string, isBinary = true): string => {
-  if (process.client) {
+  if (import.meta.browser) {
     return window.btoa(value);
   }
 
@@ -38,7 +38,7 @@ const stringToBase64 = (value: string, isBinary = true): string => {
 };
 
 const base64ToString = (base64: string, isBinary = true): string => {
-  if (process.client) {
+  if (import.meta.browser) {
     return window.atob(base64);
   }
 

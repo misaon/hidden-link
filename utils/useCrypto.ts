@@ -1,5 +1,5 @@
 const crypto = async (): Promise<Crypto> => {
-  if (process.client) {
+  if (import.meta.browser) {
     return window.crypto;
   }
 
