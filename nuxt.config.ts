@@ -18,9 +18,11 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/i18n',
     'nuxt-icon',
+    '@nuxtjs/color-mode',
     '@nuxtjs/eslint-module',
   ],
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       link: [
         {
@@ -74,6 +76,9 @@ export default defineNuxtConfig({
       ssr: false,
     },
   },
+  eslint: {
+    lintOnStart: false,
+  },
   i18n: {
     baseUrl: 'https://hidden-link.com',
     locales: [
@@ -86,5 +91,10 @@ export default defineNuxtConfig({
     lazy: true,
     langDir: 'lang',
     defaultLocale: 'en',
+  },
+  colorMode: {
+    preference: 'light',
+    dataValue: 'theme',
+    storageKey: 'color-mode',
   },
 });

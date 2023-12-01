@@ -1,29 +1,70 @@
 <template>
-  <div class="container flex max-w-screen-lg flex-col gap-8 pb-8">
-    <FormDecrypt :hash="hash!" />
+  <div class="container flex max-w-screen-lg flex-col gap-8">
+    <div v-if="remainingTime.seconds !== undefined" class="flex justify-center">
+      <div class="grid auto-cols-max grid-flow-col gap-5 text-center">
+        <div v-if="remainingTime.days" class="flex flex-col items-center">
+          <span class="countdown text-4xl">
+            <span :style="`--value:${remainingTime.days}`"></span>
+          </span>
+          <span>days</span>
+        </div>
+        <div v-if="remainingTime.hours" class="flex flex-col items-center">
+          <span class="countdown text-4xl">
+            <span :style="`--value:${remainingTime.hours}`"></span>
+          </span>
+          <span>hours</span>
+        </div>
+        <div v-if="remainingTime.minutes" class="flex flex-col items-center">
+          <span class="countdown text-4xl">
+            <span :style="`--value:${remainingTime.minutes}`"></span>
+          </span>
+          <span>min</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="countdown text-4xl">
+            <span :style="`--value:${remainingTime.seconds}`"></span>
+          </span>
+          <span>sec</span>
+        </div>
+      </div>
+    </div>
 
-    <span class="text-center"
-      >{{ $t('decryptForm.countdown') }} <b data-cy="expire-in">{{ expireIn }}</b></span
-    >
+    <FormDecrypt :hash="hash!" :raw-content="rawContent!" />
 
-    <div class="flex justify-center">
-      <button
-        class="flex select-none items-center justify-center gap-2 rounded bg-primary p-4 text-center font-bold uppercase shadow-md transition-colors duration-300 hover:bg-blue-500"
+    <div class="flex flex-col gap-4">
+      <span class="text-center"
+        >{{ $t('decryptForm.countdown') }} <b data-cy="expire-in">{{ expireInFormatted }}</b></span
       >
-        <Icon name="mdi:delete" class="text-2xl" />
-        <span>{{ $t('decryptForm.deleteNow') }}</span>
-      </button>
+
+      <div class="flex justify-center">
+        <button class="btn btn-error" @click="() => deleteExecute()">
+          <span class="swap">
+            <Icon
+              name="mdi:delete"
+              class="h-6 w-6"
+              :class="[deleteStatus !== 'pending' ? 'swap-off' : 'swap-on']"
+            />
+            <span
+              class="swap-off loading loading-spinner h-6 w-6"
+              :class="[deleteStatus === 'pending' ? 'swap-off' : 'swap-on']"
+            ></span>
+          </span>
+          <span>{{ $t('decryptForm.deleteNow') }}</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { ContentGetRequest, ContentGetResponse, ContentDeleteRequest } from '~/types';
+
 definePageMeta({
   title: 'pages.title.content',
-  layout: 'content',
 });
 
 const route = useRoute();
+const localePath = useLocalePath();
 const { parseHash } = useIdentifier();
 
 const hash = route.hash.startsWith('#') ? route.hash.slice(1) : undefined;
@@ -35,7 +76,7 @@ if (!hash) {
   });
 }
 
-const { expireInDate } = parseHash(hash);
+const { id, expireIn, expireInDate } = parseHash(hash);
 
 if (new Date() > expireInDate) {
   throw createError({
@@ -44,13 +85,40 @@ if (new Date() > expireInDate) {
   });
 }
 
-const { formatDistance } = useDateFns();
+const { data: rawContent, error } = await useFetch<ContentGetResponse>('/api/content-get', {
+  method: 'POST',
+  body: { identifier: `${id}:${expireIn}` } as ContentGetRequest,
+});
 
-const getDuration = () => formatDistance(expireInDate);
+if (error.value) {
+  throw createError({
+    fatal: true,
+    statusCode: 404,
+  });
+}
 
-const expireIn = ref(await getDuration());
+const { status: deleteStatus, execute: deleteExecute } = await useAsyncData(
+  'delete-process',
+  async () => {
+    await $fetch<void>('/api/content-delete', {
+      method: 'DELETE',
+      body: { identifier: `${id}:${expireIn}` } as ContentDeleteRequest,
+    });
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 2000));
+    await navigateTo(localePath({ name: 'index' }));
+  },
+  {
+    immediate: false,
+  }
+);
+
+const { formatDistance, getRemainingTime } = useDateFns();
+
+const remainingTime = ref(getRemainingTime(expireInDate));
+const expireInFormatted = ref(await formatDistance(expireInDate));
 
 setInterval(async () => {
-  expireIn.value = await getDuration();
+  remainingTime.value = getRemainingTime(expireInDate);
+  expireInFormatted.value = await formatDistance(expireInDate);
 }, 1000);
 </script>

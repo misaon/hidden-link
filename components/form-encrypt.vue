@@ -9,13 +9,14 @@
       data-cy="editor"
       @submit.prevent="handleFormSubmit"
     >
-      <div class="flex flex-col overflow-hidden rounded bg-white/25 shadow-md">
+      <div class="flex flex-col overflow-hidden rounded bg-secondary shadow-md">
         <QuillEditor v-model="content" :placeholder="$t('encryptForm.contentPlaceholder')" />
       </div>
       <button
-        class="flex select-none items-center justify-center gap-2 rounded bg-primary p-4 text-center font-bold uppercase shadow-md transition-colors duration-300 hover:bg-blue-500"
+        class="btn btn-primary"
         type="submit"
         data-cy="button-encrypt"
+        :class="{ 'pointer-events-none': content.length === 0 }"
       >
         {{ $t('encryptForm.send') }}
       </button>
@@ -32,15 +33,19 @@
           v-for="item in progress"
           :key="item.text"
           data-cy="progress-item"
-          class="flex items-center gap-4 rounded bg-white/25 p-4 shadow-md"
+          class="flex items-center gap-4 rounded bg-secondary p-4 shadow-md"
         >
-          <div>
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/25">
+          <div class="flex items-center">
+            <div class="swap">
               <Icon
-                :name="item.isDone ? 'mdi:check' : 'mdi:loading'"
-                class="absolute text-3xl transition-all"
-                :class="{ 'animate-spin': !item.isDone }"
+                name="mdi:check"
+                class="h-8 w-8"
+                :class="[!item.isDone ? 'swap-on' : 'swap-off']"
               />
+              <span
+                class="loading loading-spinner h-8 w-8"
+                :class="[item.isDone ? 'swap-on' : 'swap-off']"
+              ></span>
             </div>
           </div>
 
@@ -56,25 +61,21 @@
       :style="{ height: `${formWrapperHeight}px` }"
     >
       <div class="flex flex-col gap-4">
-        <div class="rounded bg-white/25 p-4 shadow-md">
-          <p v-html="$t('encryptForm.progressDoneText')"></p>
+        <div class="rounded bg-secondary shadow-md">
+          <p class="p-4" v-html="$t('encryptForm.progressDoneText')"></p>
         </div>
 
         <div class="flex gap-4">
           <button
-            class="flex flex-1 select-none items-center justify-center gap-2 rounded bg-primary p-4 text-center font-bold uppercase shadow-md transition-colors duration-300 hover:bg-blue-500"
+            class="btn btn-primary flex-1 cursor-copy"
             data-cy="button-copy-link"
             :data-link="contentLink"
             @click="copy(contentLink || '')"
           >
-            <Icon name="mdi:link-variant" class="text-2xl" />
+            <Icon name="mdi:key-link" class="h-6 w-6" />
             <span v-text="copied ? $t('encryptForm.copied') : $t('encryptForm.copyLink')"></span>
           </button>
-          <button
-            class="flex flex-1 select-none items-center justify-center gap-2 rounded bg-white/25 p-4 text-center font-bold uppercase shadow-md transition-colors duration-300 hover:bg-white/50"
-            data-cy="button-reset"
-            @click="resetForm"
-          >
+          <button class="btn btn-secondary flex-1" data-cy="button-reset" @click="resetForm">
             {{ $t('encryptForm.createAnother') }}
           </button>
         </div>
@@ -176,7 +177,7 @@ const {
     });
 
     updateProgress(false);
-    await new Promise<void>((resolve) => setTimeout(() => resolve(), 2000));
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 500));
 
     return window.location.origin + contentHashLink;
   },

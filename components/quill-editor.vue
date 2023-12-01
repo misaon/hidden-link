@@ -1,48 +1,44 @@
 <template>
-  <div v-if="showToolbar" id="editor-toolbar" class="flex border-b-2 border-b-white/10">
-    <div class="flex grow lg:gap-4">
-      <div class="flex">
-        <button class="ql-bold flex h-10 w-10 items-center justify-center hover:bg-white/25">
-          <Icon name="mdi:format-bold" class="text-xl" />
-        </button>
-        <button class="ql-italic flex h-10 w-10 items-center justify-center hover:bg-white/25">
-          <Icon name="mdi:format-italic" class="text-xl" />
-        </button>
-        <button class="ql-underline flex h-10 w-10 items-center justify-center hover:bg-white/25">
-          <Icon name="mdi:format-underline" class="text-xl" />
-        </button>
-        <button class="ql-strike flex h-10 w-10 items-center justify-center hover:bg-white/25">
-          <Icon name="mdi:format-strikethrough-variant" class="text-xl" />
-        </button>
+  <div class="relative">
+    <div v-if="showToolbar" id="editor-toolbar" class="flex border-b-2 border-b-white/10">
+      <div class="flex grow">
+        <div class="flex">
+          <button class="ql-bold btn btn-ghost h-auto min-h-0 rounded-none p-2">
+            <Icon name="mdi:format-bold" class="h-6 w-6" />
+          </button>
+          <button class="ql-italic btn btn-ghost h-auto min-h-0 rounded-none p-2">
+            <Icon name="mdi:format-italic" class="h-6 w-6" />
+          </button>
+          <button class="ql-underline btn btn-ghost h-auto min-h-0 rounded-none p-2">
+            <Icon name="mdi:format-underline" class="h-6 w-6" />
+          </button>
+          <button class="ql-strike btn btn-ghost h-auto min-h-0 rounded-none p-2">
+            <Icon name="mdi:format-strikethrough-variant" class="h-6 w-6" />
+          </button>
+        </div>
+        <div class="flex">
+          <button class="ql-list btn btn-ghost h-auto min-h-0 rounded-none p-2" value="bullet">
+            <Icon name="mdi:format-list-bulleted" class="h-6 w-6" />
+          </button>
+          <button class="ql-list btn btn-ghost h-auto min-h-0 rounded-none p-2" value="ordered">
+            <Icon name="mdi:format-list-numbered" class="h-6 w-6" />
+          </button>
+        </div>
+        <div class="flex">
+          <button class="ql-clean btn btn-ghost h-auto min-h-0 rounded-none p-2">
+            <Icon name="mdi:format-clear" class="h-6 w-6" />
+          </button>
+        </div>
       </div>
-      <div class="flex">
-        <button
-          class="ql-list flex h-10 w-10 items-center justify-center hover:bg-white/25"
-          value="bullet"
-        >
-          <Icon name="mdi:format-list-bulleted" class="text-xl" />
-        </button>
-        <button
-          class="ql-list flex h-10 w-10 items-center justify-center hover:bg-white/25"
-          value="ordered"
-        >
-          <Icon name="mdi:format-list-numbered" class="text-xl" />
-        </button>
-      </div>
-      <div class="flex">
-        <button class="ql-clean flex h-10 w-10 items-center justify-center hover:bg-white/25">
-          <Icon name="mdi:format-clear" class="text-xl" />
-        </button>
-      </div>
-    </div>
 
-    <div class="flex">
-      <button type="button" class="flex h-10 w-10 items-center justify-center hover:bg-white/25">
-        <Icon name="mdi:cog" class="text-xl" />
+      <!--    <div class="flex">
+      <button type="button" class="btn btn-ghost h-auto min-h-0 rounded-none p-2">
+        <Icon name="mdi:cog" class="h-6 w-6" />
       </button>
+    </div>-->
     </div>
+    <div ref="editorElement" class="p-4" :style="{ height: `${props.editorHeight}px` }"></div>
   </div>
-  <div ref="editorElement" class="p-4" :style="{ height: `${props.editorHeight}px` }"></div>
 </template>
 
 <script setup lang="ts">
@@ -54,6 +50,7 @@ interface Props {
   readonly?: boolean;
   showToolbar?: boolean;
   editorHeight?: number;
+  maxContentLength?: number;
 }
 
 const emit = defineEmits(['update:modelValue']);
@@ -63,6 +60,7 @@ const props = withDefaults(defineProps<Props>(), {
   readonly: false,
   showToolbar: true,
   editorHeight: 290,
+  maxContentLength: 3000,
 });
 
 const editorInstance = ref<Quill>();
@@ -96,7 +94,14 @@ onMounted(async () => {
 
 const handleTextChange: TextChangeHandler = (delta, oldContents, source) => {
   if (source === 'user') {
-    emit('update:modelValue', editorInstance.value?.root.innerHTML);
+    const contentLength = editorInstance.value?.getLength() || 0;
+
+    if (contentLength >= props.maxContentLength) {
+      editorInstance.value?.deleteText(props.maxContentLength, contentLength);
+      return;
+    }
+
+    emit('update:modelValue', editorInstance.value?.root?.innerHTML);
   }
 };
 
@@ -106,23 +111,19 @@ defineExpose({
 </script>
 
 <style lang="postcss">
-.ql-toolbar {
-  & > button {
-    &.ql-active {
-      @apply bg-white/25;
-    }
-  }
+button.ql-active {
+  @apply bg-white/25;
 }
 
 .ql-editor {
   @apply relative outline-0 overflow-y-auto h-full select-text;
 
   &::-webkit-scrollbar {
-    @apply w-2;
+    @apply w-2 bg-white/25;
   }
 
   &::-webkit-scrollbar-thumb {
-    @apply bg-white/25 rounded hover:bg-white/50;
+    @apply bg-white/50 rounded cursor-pointer;
   }
 
   &.ql-blank:before {
