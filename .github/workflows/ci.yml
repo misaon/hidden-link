@@ -1,6 +1,12 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build-and-test:
@@ -18,7 +24,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - uses: pnpm/action-setup@v2
-        name: Install pnpm
+        name: 🔧 Install pnpm
         with:
           version: 8
           run_install: false
@@ -29,38 +35,46 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - uses: actions/cache@v3
-        name: Setup pnpm cache
+        name: Cache pnpm store
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
+      - uses: actions/cache@v3
+        name: Cache Cypress binary
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-
+
+      - name: 📦 Install dependencies
         run: pnpm install
 
-      - name: Check formatting
+      - name: 📝 Check formatting
         run: pnpm run fmt
 
-      - name: Run linter
+      - name: 🔠 Lint project
         run: pnpm run lint
 
-      - name: Check Typescript types
+      - name: 💪 Test types
         run: pnpm run typecheck
 
-      - name: Try build Nuxt app
+      - name: 🛠 Build project
         run: pnpm run build
 
-      - name: Run Vitest tests
+      - name: 🧪 Test project
         run: pnpm run test
 
-      - name: Run Cypress tests
+      - name: 🎯 E2E test project
         uses: cypress-io/github-action@v6
         with:
           start: pnpm run preview
           browser: chrome
 
-      - name: Archive Cypress videos and screenshots
+      - name: 💾 Archive artifacts
         if: failure()
         uses: actions/upload-artifact@v3
         with:
@@ -69,7 +83,7 @@ jobs:
             cypress/videos
             cypress/screenshots
 
-      - name: Upload coverage to Codecov
+      - name: 🟩 Coverage
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
