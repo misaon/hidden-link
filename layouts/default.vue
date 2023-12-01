@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full flex-col">
+  <div class="flex h-full flex-col gap-12">
     <Html :lang="head.htmlAttrs!.lang" :dir="head.htmlAttrs!.dir">
       <Head>
         <Title>{{ title }}</Title>
@@ -14,17 +14,20 @@
         </template>
       </Head>
       <Body>
-        <div class="bg-gradient-to-t from-blue-900 to-blue-700 text-white">
-          <div class="container flex max-w-screen-xl flex-col pt-8">
+        <div class="bg-gradient-to-t from-base-100 to-base-200">
+          <div class="container flex max-w-screen-xl flex-col gap-12 pt-8">
             <AppHeader />
 
-            <div class="grid grid-cols-1 gap-10 py-10 lg:container lg:grid-cols-2 lg:py-14">
+            <div v-if="route.path === '/'" class="grid grid-cols-1 gap-12 lg:grid-cols-2">
               <div class="flex flex-col gap-8">
-                <h1 class="text-5xl font-bold">{{ $t('header.title') }}</h1>
-                <p class="text-white/75">{{ $t('header.subtitle') }}</p>
+                <h1 class="text-5xl font-bold text-accent-content">{{ $t('header.title') }}</h1>
+                <p>{{ $t('header.subtitle') }}</p>
               </div>
 
               <FormEncrypt />
+            </div>
+            <div v-else class="text-center lg:container">
+              <h1 class="text-5xl font-bold">{{ $t('decryptForm.title') }}</h1>
             </div>
           </div>
         </div>

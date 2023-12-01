@@ -1,25 +1,22 @@
 <template>
-  <footer class="border-t border-t-white/25 bg-blue-900 text-white/75">
-    <div
-      class="container flex max-w-screen-xl flex-col items-center gap-4 py-8 text-center md:justify-between lg:flex-row"
-    >
-      <p>
-        Copyright © {{ currentYear }} <span class="font-bold">{{ appConfig.name }}</span>
-      </p>
-      <p>
+  <div class="container max-w-screen-xl">
+    <div class="divider m-0"></div>
+
+    <footer class="footer items-center gap-4 py-4">
+      <p class="flex md:justify-self-start">Copyright © {{ currentYear }} - All right reserved</p>
+      <p class="flex items-center md:justify-self-end">
         {{ $t('footer.licensedUnder') }}
         <NuxtLink
           to="https://github.com/misaon/hidden-link/blob/main/LICENSE"
           target="_blank"
-          class="underline hover:text-white/75"
+          class="link"
           >Apache License 2.0</NuxtLink
         >
       </p>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </template>
 
 <script setup lang="ts">
-const appConfig = useAppConfig();
 const currentYear = useDateFormat(useNow(), 'YYYY');
 </script>
