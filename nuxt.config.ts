@@ -46,21 +46,6 @@ export default defineNuxtConfig({
           rel: 'manifest',
           href: '/site.webmanifest',
         },
-        {
-          rel: 'mask-icon',
-          href: '/safari-pinned-tab.svg',
-          color: '#1d4ed8',
-        },
-      ],
-      meta: [
-        {
-          name: 'msapplication-TileColor',
-          content: '#1d4ed8',
-        },
-        {
-          name: 'theme-color',
-          content: '#1d4ed8',
-        },
       ],
     },
   },

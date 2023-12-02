@@ -1,7 +1,16 @@
 <template>
-  <div class="container flex max-w-screen-xl flex-col gap-12">
+  <div class="flex flex-col gap-12">
+    <section class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+      <div class="flex flex-col gap-8">
+        <h1 class="text-5xl font-bold text-accent-content">{{ $t('header.title') }}</h1>
+        <p>{{ $t('header.subtitle') }}</p>
+      </div>
+
+      <FormEncrypt />
+    </section>
+
     <section id="why" class="flex flex-col gap-4">
-      <div class="divider divider-start text-4xl font-bold">Why?</div>
+      <h2 class="divider divider-start text-4xl font-bold">Why?</h2>
       <p>
         Nullam eget nisl. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
         doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
@@ -21,7 +30,7 @@
     </section>
 
     <section id="how-it-works" class="flex flex-col gap-4">
-      <div class="divider divider-start text-4xl font-bold">How it works?</div>
+      <h2 class="divider divider-start text-4xl font-bold">How it works?</h2>
       <p>
         Nullam eget nisl. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
         doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
@@ -41,7 +50,7 @@
     </section>
 
     <section id="faq" class="flex flex-col gap-4">
-      <div class="divider divider-start text-4xl font-bold">FAQ</div>
+      <h2 class="divider divider-start text-4xl font-bold">FAQ</h2>
       <p>
         Nullam eget nisl. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
         doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et

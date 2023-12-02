@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative overflow-hidden rounded bg-secondary shadow-md">
     <div v-if="showToolbar" id="editor-toolbar" class="flex border-b-2 border-b-white/10">
       <div class="flex grow">
         <div class="flex">
@@ -112,7 +112,7 @@ defineExpose({
 
 <style lang="postcss">
 button.ql-active {
-  @apply bg-white/25;
+  @apply btn-active;
 }
 
 .ql-editor {

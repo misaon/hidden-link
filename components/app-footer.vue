@@ -1,22 +1,19 @@
 <template>
-  <div class="container max-w-screen-xl">
-    <div class="divider m-0"></div>
-
-    <footer class="footer items-center gap-4 py-4">
-      <p class="flex md:justify-self-start">Copyright © {{ currentYear }} - All right reserved</p>
-      <p class="flex items-center md:justify-self-end">
-        {{ $t('footer.licensedUnder') }}
-        <NuxtLink
-          to="https://github.com/misaon/hidden-link/blob/main/LICENSE"
-          target="_blank"
-          class="link"
-          >Apache License 2.0</NuxtLink
-        >
-      </p>
-    </footer>
-  </div>
+  <footer class="footer items-center gap-2 py-8">
+    <p class="flex md:justify-self-start">{{ t('footer.copyright', { currentYear }) }}</p>
+    <p class="flex items-center md:justify-self-end">
+      {{ $t('footer.licensedUnder') }}
+      <NuxtLink
+        to="https://github.com/misaon/hidden-link/blob/main/LICENSE"
+        target="_blank"
+        class="link"
+        >Apache License 2.0</NuxtLink
+      >
+    </p>
+  </footer>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 const currentYear = useDateFormat(useNow(), 'YYYY');
 </script>

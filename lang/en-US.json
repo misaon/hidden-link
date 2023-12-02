@@ -1,4 +1,7 @@
 {
+  "general": {
+    "backToHomepage": "Back to homepage"
+  },
   "pages": {
     "title": {
       "content": "Shared content"
@@ -9,6 +12,7 @@
     "subtitle": "Our tool that lets you share sensitive information with your colleagues or friends more securely with time-limited links. Everything is encrypted (end-to-end) and completely anonymous. We are using secure techniques as OWASP, RSA and AES-256. No more sending plain passwords via messages!"
   },
   "footer": {
+    "copyright": "Copyright © {currentYear} - All right reserved",
     "licensedUnder": "Software licensed under"
   },
   "encryptForm": {
@@ -29,5 +33,14 @@
     "title": "Successfully decrypted link content",
     "countdown": "This link and content will be permanently deleted",
     "deleteNow": "Delete now"
+  },
+  "countdown": {
+    "seconds": "sec",
+    "minutes": "min",
+    "hours": "hours",
+    "days": "days"
+  },
+  "error": {
+    "contentNotExist": "Content with this identifier does not exist"
   }
 }
