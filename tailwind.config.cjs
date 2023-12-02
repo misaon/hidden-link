@@ -16,7 +16,7 @@ module.exports = {
         light: {
           ...require('daisyui/src/theming/themes')['light'],
           primary: colors.blue['600'],
-          secondary: '#5674C8',
+          secondary: '#4B68BB',
           info: colors.sky['600'],
           success: colors.lime['600'],
           warning: colors.amber['600'],
@@ -29,14 +29,13 @@ module.exports = {
         dark: {
           ...require('daisyui/src/theming/themes')['dark'],
           primary: colors.blue['800'],
-          // See https://www.tailwindshades.com for darker variant of light color version
-          secondary: '#2B4283',
+          secondary: '#4B5364',
           info: colors.sky['800'],
           success: colors.lime['800'],
           warning: colors.amber['800'],
           error: colors.red['800'],
           'base-100': colors.slate['900'],
-          'base-200': colors.slate['800'],
+          'base-200': colors.slate['700'],
           'accent-content': colors.slate['50'],
           'base-content': colors.slate['100'],
         },

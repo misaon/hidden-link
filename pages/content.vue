@@ -1,37 +1,14 @@
 <template>
-  <div class="container flex max-w-screen-lg flex-col gap-8">
-    <div v-if="remainingTime.seconds !== undefined" class="flex justify-center">
-      <div class="grid auto-cols-max grid-flow-col gap-5 text-center">
-        <div v-if="remainingTime.days" class="flex flex-col items-center">
-          <span class="countdown text-4xl">
-            <span :style="`--value:${remainingTime.days}`"></span>
-          </span>
-          <span>days</span>
-        </div>
-        <div v-if="remainingTime.hours" class="flex flex-col items-center">
-          <span class="countdown text-4xl">
-            <span :style="`--value:${remainingTime.hours}`"></span>
-          </span>
-          <span>hours</span>
-        </div>
-        <div v-if="remainingTime.minutes" class="flex flex-col items-center">
-          <span class="countdown text-4xl">
-            <span :style="`--value:${remainingTime.minutes}`"></span>
-          </span>
-          <span>min</span>
-        </div>
-        <div class="flex flex-col items-center">
-          <span class="countdown text-4xl">
-            <span :style="`--value:${remainingTime.seconds}`"></span>
-          </span>
-          <span>sec</span>
-        </div>
-      </div>
-    </div>
+  <div class="flex flex-col gap-12">
+    <section class="text-center">
+      <h1 class="text-5xl font-bold">{{ $t('decryptForm.title') }}</h1>
+    </section>
 
-    <FormDecrypt :hash="hash!" :raw-content="rawContent!" />
+    <section class="flex flex-col gap-4">
+      <CountdownTimer :expire-in-date="expireInDate" />
 
-    <div class="flex flex-col gap-4">
+      <FormDecrypt :hash="hash!" :raw-content="rawContent!" />
+
       <span class="text-center"
         >{{ $t('decryptForm.countdown') }} <b data-cy="expire-in">{{ expireInFormatted }}</b></span
       >
@@ -52,7 +29,7 @@
           <span>{{ $t('decryptForm.deleteNow') }}</span>
         </button>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -64,6 +41,7 @@ definePageMeta({
 });
 
 const route = useRoute();
+const { t } = useI18n();
 const localePath = useLocalePath();
 const { parseHash } = useIdentifier();
 
@@ -82,6 +60,7 @@ if (new Date() > expireInDate) {
   throw createError({
     fatal: true,
     statusCode: 404,
+    statusMessage: t('error.contentNotExist'),
   });
 }
 
@@ -94,6 +73,7 @@ if (error.value) {
   throw createError({
     fatal: true,
     statusCode: 404,
+    statusMessage: t('error.contentNotExist'),
   });
 }
 
@@ -104,7 +84,7 @@ const { status: deleteStatus, execute: deleteExecute } = await useAsyncData(
       method: 'DELETE',
       body: { identifier: `${id}:${expireIn}` } as ContentDeleteRequest,
     });
-    await new Promise<void>((resolve) => setTimeout(() => resolve(), 2000));
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
     await navigateTo(localePath({ name: 'index' }));
   },
   {
@@ -112,13 +92,11 @@ const { status: deleteStatus, execute: deleteExecute } = await useAsyncData(
   }
 );
 
-const { formatDistance, getRemainingTime } = useDateFns();
+const { formatDistance } = useDateFns();
 
-const remainingTime = ref(getRemainingTime(expireInDate));
 const expireInFormatted = ref(await formatDistance(expireInDate));
 
 setInterval(async () => {
-  remainingTime.value = getRemainingTime(expireInDate);
   expireInFormatted.value = await formatDistance(expireInDate);
-}, 1000);
+}, 60_000);
 </script>

@@ -8,6 +8,14 @@ body,
   @apply h-full;
 }
 
+html {
+  @apply bg-gradient-to-b from-base-200 to-80% bg-no-repeat;
+}
+
+#__nuxt {
+  @apply flex flex-col gap-12 container max-w-screen-xl;
+}
+
 .btn {
   @apply uppercase text-white;
 }

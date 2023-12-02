@@ -1,13 +1,15 @@
 <template>
-  <header class="navbar items-center justify-between fill-accent-content p-0 text-accent-content">
+  <header
+    class="navbar mt-4 items-center justify-between fill-accent-content p-0 text-accent-content"
+  >
     <NuxtLink :to="localePath({ name: 'index' })" class="flex items-center gap-2">
       <Icon name="mdi:link-lock" class="text-4xl" />
       <span class="text-2xl font-bold">{{ appConfig.name }}</span>
     </NuxtLink>
 
-    <nav class="flex gap-2">
+    <nav class="flex items-center gap-2">
       <ClientOnly>
-        <label
+        <button
           class="btn btn-circle btn-ghost swap swap-rotate"
           @click="$colorMode.preference = $colorMode.preference === 'light' ? 'dark' : 'light'"
         >
@@ -21,7 +23,7 @@
             :class="[$colorMode.preference === 'light' ? 'swap-off' : 'swap-on']"
             class="h-8 w-8"
           />
-        </label>
+        </button>
       </ClientOnly>
 
       <NuxtLink

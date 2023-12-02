@@ -1,8 +1,6 @@
 <template>
-  <form class="flex flex-col" autocomplete="off" spellcheck="false" data-cy="editor">
-    <div class="flex flex-col overflow-hidden rounded bg-secondary shadow-md">
-      <QuillEditor v-model="content" :readonly="true" :show-toolbar="false" :editor-height="500" />
-    </div>
+  <form autocomplete="off" spellcheck="false" data-cy="editor">
+    <QuillEditor v-model="content" :readonly="true" :show-toolbar="false" :editor-height="500" />
   </form>
 </template>
 

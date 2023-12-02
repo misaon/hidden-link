@@ -46,7 +46,7 @@ module.exports = {
       },
     },
     {
-      files: ['layouts/**/*.vue', 'pages/**/*.vue'],
+      files: ['app.vue', 'error.vue', 'pages/**/*.vue'],
       rules: {
         'vue/multi-word-component-names': 'off',
       },
