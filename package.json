@@ -26,7 +26,7 @@
     "@nuxtjs/i18n": "8.0.0-rc.6",
     "@nuxtjs/tailwindcss": "^6.10.1",
     "@types/quill": "^2.0.14",
-    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.1",
     "@vercel/analytics": "^1.1.1",
     "@vercel/kv": "^1.0.0",
