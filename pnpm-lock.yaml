@@ -92,8 +92,8 @@ devDependencies:
     specifier: ^0.6.6
     version: 0.6.6(nuxt@3.8.2)(vite@4.5.0)(vue@3.3.9)
   nuxt-security:
-    specifier: 1.0.0-rc.4
-    version: 1.0.0-rc.4
+    specifier: 1.0.0-rc.5
+    version: 1.0.0-rc.5
   prettier:
     specifier: ^3.1.0
     version: 3.1.0
@@ -6917,16 +6917,16 @@ packages:
       - vue
     dev: true
 
-  /nuxt-security@1.0.0-rc.4:
-    resolution: {integrity: sha512-xYj0+kXpgePq59UPTZ73eGN74LT2ByFMbobV5eZkePVLWwa8MNl1j0XhM2IjdBhowFnCMasApU2P/dnP27J96g==}
+  /nuxt-security@1.0.0-rc.5:
+    resolution: {integrity: sha512-2FgpQZVD4zky9biyRC8WaaK16QxLj2obeCPm1xFJyiCZ9eP2I5XduL+8unwjw+vx72YbaDCelqz7Bnnhjs2mxw==}
     dependencies:
-      '@nuxt/kit': 3.8.1
+      '@nuxt/kit': 3.8.2
       basic-auth: 2.0.1
       cheerio: 1.0.0-rc.12
       defu: 6.1.3
       nuxt-csurf: 1.3.1
       pathe: 1.1.1
-      unplugin-remove: 0.1.5
+      unplugin-remove: 0.1.6
       xss: 1.0.14
     transitivePeerDependencies:
       - rollup
@@ -9162,8 +9162,8 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unplugin-remove@0.1.5:
-    resolution: {integrity: sha512-WZ2253kheZQ0Py/3GwdSdhNsc/3nZRd1q2W07MMt9Wkhe1r06SUtdaqobzo5/Rd90sMSpISHjSF9XMzJC7R7Vg==}
+  /unplugin-remove@0.1.6:
+    resolution: {integrity: sha512-/jwD4+ZzeBGC32Rx7m59FOhqALmtLsTeabFwaYM8yQMVaVO8un8AQxZi3YFJirPzJgEW43e5/wQpze8z/WwOxA==}
     dependencies:
       '@rollup/pluginutils': 4.2.1
       magic-string: 0.26.7
